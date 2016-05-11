@@ -219,8 +219,11 @@ public:
       //}
     std::ostringstream ss;
 
-    for ( auto r: res )
-      ss << r.first << " " << res[r.first] << " ";
+std::map<std::string, int>::iterator iter;
+ for(iter=res.begin();iter!=res.end();++iter)
+ss << (*iter).first << " " << res[(*iter).first] << " ";   
+ //for ( auto r: res )
+     // ss << r.first << " " << res[r.first] << " ";
 
     ss << name << ".txt";
 
