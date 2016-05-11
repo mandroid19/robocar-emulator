@@ -284,28 +284,36 @@ ss << (*iter).first << " " << res[(*iter).first] << " ";
   inline void pursuit ( void )
   {
 
-    for ( auto car1:m_cop_cars )
+ std::vector<std::shared_ptr<justine::robocar::CopCar>>::iterator it;
+  for(it=m_cop_cars.begin();it!=m_cop_cars.end();++it)
+    //for ( auto car1:m_cop_cars )
       {
 
         double lon1 {0.0}, lat1 {0.0};
-        toGPS ( car1->from(), car1->to() , car1->get_step(), &lon1, &lat1 );
+        //toGPS ( car1->from(), car1->to() , car1->get_step(), &lon1, &lat1 );
+	toGPS ( (*it)->from(), (*it)->to() , (*it)->get_step(), &lon1, &lat1 );
 
         double lon2 {0.0}, lat2 {0.0};
-        for ( auto car:m_smart_cars )
+        std::vector<std::shared_ptr<justine::robocar::SmartCar>>::iterator iter;
+ 	for(iter=m_smart_cars.begin(); iter!=m_smart_cars.end(); ++iter)
+//for ( auto car:m_smart_cars )
           {
 
-            if ( car->get_type() == CarType::GANGSTER )
-              {
+           // if ( car->get_type() == CarType::GANGSTER )
+	      if ( (*iter)->get_type() == CarType::GANGSTER )             
+ {
 
-                toGPS ( car->from(), car->to() , car->get_step(), &lon2, &lat2 );
+                //toGPS ( car->from(), car->to() , car->get_step(), &lon2, &lat2 );
+		  toGPS ( (*iter)->from(), (*iter)->to() , (*iter)->get_step(), &lon2, &lat2 );
                 double d = dst ( lon1, lat1, lon2, lat2 );
 
                 if ( d < m_catchdist )
                   {
 
-                    car1->captured_gangster();
-                    car->set_type ( CarType::CAUGHT );
-
+                   // car1->captured_gangster();
+		      (*it)->captured_gangster();
+                    //car->set_type ( CarType::CAUGHT );
+		      (*iter)->set_type ( CarType::CAUGHT );
                   }
               }
           }
