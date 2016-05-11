@@ -192,9 +192,11 @@ public:
 
     std::cout << "The traffic simulation is over." << std::endl;
 
-    for ( auto c:m_cop_cars )
-      *logFile  << *c << std::endl;
-
+   	std::vector<std::shared_ptr<justine::robocar::CopCar>>::iterator it;
+	for(it=m_cop_cars.begin();it!=m_cop_cars.end();++it)
+// for ( auto c:m_cop_cars )
+     // *logFile  << *c << std::endl;
+	*logFile << *(*it) << std::endl;
     logFile->close ();
 
     boost::filesystem::rename (
