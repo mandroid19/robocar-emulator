@@ -262,14 +262,20 @@ public:
              cars.size()
              << std::endl;
 
-    for ( auto car:cars )
-      {
-        car->step();
+    //for ( auto car:cars )
+     std::vector<std::shared_ptr<justine::robocar::Car>>::iterator it;
+     for(it=cars.begin();it!=cars.end();it++)
 
-        *logFile << *car
-                 <<  " " << std::endl;
-
-      }
+ //{
+        //car->step();
+{
+	(*it)->step();
+       // *logFile << *car
+	*logFile << *(*it)
+                // <<  " " << std::endl;
+	 <<  " " << std::endl;
+	}
+      //}
   }
 
   inline void pursuit ( void )
