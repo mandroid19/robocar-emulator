@@ -235,10 +235,14 @@ void justine::sampleclient::MyShmClient::route (
   size_t length = std::sprintf ( data,
                                  "<route %d %d", path.size(), id );
 
-  for ( auto ui: path )
-    length += std::sprintf ( data+length, " %u", ui );
-
-  length += std::sprintf ( data+length, ">" );
+  //for ( auto ui: path )
+    //length += std::sprintf ( data+length, " %u", ui );
+	std::vector<osmium::unsigned_object_id_type>::iterator iter;
+	for(iter=path.begin(); iter!=path.end(); ++iter)
+	
+	length += std::sprintf ( data+length, " %u", (*iter) );
+ 
+ length += std::sprintf ( data+length, ">" );
 
   socket.send ( boost::asio::buffer ( data, length ) );
 
