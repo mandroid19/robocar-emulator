@@ -343,12 +343,15 @@ void justine::sampleclient::MyShmClient::start10 ( boost::asio::io_service& io_s
     {
       std::this_thread::sleep_for ( std::chrono::milliseconds ( 200 ) );
 
-      for ( auto cop:cops )
-        {
-          car ( socket, cop, &f, &t, &s );
 
+        
+	std::vector<justine::sampleclient::MyShmClient::Cop>::iterator it;
+       for(it=cops.begin(); it!=cops.end(); ++it)
+      //for ( auto cop:cops ){
+         // car ( socket, cop, &f, &t, &s );
+	car ( socket, (*it), &f, &t, &s );
           gngstrs = gangsters ( socket, cop, t );
-
+	  gngstrs = gangsters ( socket, (*it), t );
           if ( gngstrs.size() > 0 )
             g = gngstrs[0].to;
           else
@@ -365,7 +368,8 @@ void justine::sampleclient::MyShmClient::start10 ( boost::asio::io_service& io_s
                   std::copy ( path.begin(), path.end(),
                               std::ostream_iterator<osmium::unsigned_object_id_type> ( std::cout, " -> " ) );
 
-                  route ( socket, cop, path );
+                  //route ( socket, cop, path );
+		route ( socket, (*it), path );
                 }
             }
         }
