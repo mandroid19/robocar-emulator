@@ -270,11 +270,15 @@ void justine::robocar::Traffic::cmd_session ( boost::asio::ip::tcp::socket clien
                 {
 
                   bool hasCops {false};
-                  for ( auto c:m_cop_cars )
+ 	std::vector<std::shared_ptr<justine::robocar::CopCar>>::iterator iter;
+	for(iter=m_cop_cars.begin(); iter!=m_cop_cars.end(); ++iter)
+                //  for ( auto c:m_cop_cars )
                     {
                       length += std::sprintf ( data+length,
-                                               "<OK %d %u %u %u %d>", cl.get_id(), c->from(),
-                                               c->to_node(), c->get_step(), c->get_num_captured_gangsters() );
+                                               //"<OK %d %u %u %u %d>", cl.get_id(), c->from(),
+                                              // c->to_node(), c->get_step(), c->get_num_captured_gangsters() );
+					"<OK %d %u %u %u %d>", cl.get_id(), (*iter)->from(),
+ 			                  (*iter)->to_node(), (*iter)->get_step(), (*iter)->get_num_captured_gangsters() );
 
                       if ( length > network_buffer_size - 512 )
                         {
