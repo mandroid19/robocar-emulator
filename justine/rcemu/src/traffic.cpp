@@ -1,4 +1,4 @@
-/**
+for ( auto car:cars_copy )/**
  * @brief Justine - this is a rapid prototype for development of Robocar City Emulator
  *
  * @file traffic.cpp
@@ -133,15 +133,24 @@ void justine::robocar::Traffic::cmd_session ( boost::asio::ip::tcp::socket clien
                      cars_copy.size()
                      << std::endl;
 
-                  for ( auto car:cars_copy )
-                    {
-                      car->step();
-
-                      ss << *car
-                         <<  " " << std::endl;
+ std::vector<std::shared_ptr<justine::robocar::Car>>::iterator it;
+ 		  for(it=cars_copy.begin(); it!=cars_copy.end();++it)
+ 		  {
+ 		    
+		    
+                      
+ 		                  
+		//for ( auto car:cars_copy )
+                  //  {
+                  //    car->step();
+				(*it)->step();
+                   //   ss << *car
+				 ss << *(*it)
+                   //      <<  " " << std::endl;
+				 <<  " " << std::endl;
 
                     }
-
+//}
                   boost::asio::write ( client_socket, boost::asio::buffer ( data, length ) );
                   length = std::sprintf ( data,
                                           "%s", ss.str().c_str() );
